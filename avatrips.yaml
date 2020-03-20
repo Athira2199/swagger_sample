@@ -10,6 +10,15 @@ servers:
     url: https://virtserver.swaggerhub.com/athiravajit/avatrips/v1.0.0
   - description: Cleartrip sample mock
     url: https://www.cleartrip.com
+tags:
+  - name: flights
+    description: flight related queries
+  - name: hotels
+    description: hotel related queries
+  - name: trains
+    description: train related queries
+  - name: user
+    description: user related queries
 paths:
   '/flights':
     get:
@@ -212,6 +221,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/trains/calendar':
     get:
+      tags:
+        - trains
       parameters:
         - name: from
           schema:
@@ -249,6 +260,8 @@ paths:
           description: OK
   '/flights/results':
     get:
+        tags:
+          - flights
         parameters:
           - name: from
             schema:
@@ -341,6 +354,8 @@ paths:
             description: OK
   '/hotels/results':
     get:
+      tags:
+          - hotels
       parameters:
         - name: city
           schema:
@@ -423,6 +438,8 @@ paths:
           description: OK
   '/hotels/details/{id}':
     get:
+      tags:
+          - hotels
       parameters:
         - name: id
           schema: 
@@ -460,6 +477,8 @@ paths:
           description: OK
   '/trains/results':
     get:
+      tags:
+        - trains
       parameters:
         - name: from_station
           schema:
@@ -520,6 +539,8 @@ paths:
           description: OK
   '/flights/itinerary/{id}/info':
     get:
+      tags:
+          - flights
       parameters:
         - name: id
           schema:
@@ -533,6 +554,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/flights/itinerary/{id}/traveller':
     get:
+      tags:
+          - flights
       parameters:
         - name: id
           schema:
@@ -546,6 +569,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/flights/itinerary/{id}/pay':
     get:
+      tags:
+          - flights
       parameters:
         - name: id
           schema:
@@ -559,6 +584,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/trains/itinerary/{id}/info':
     get:
+      tags:
+        - trains
       parameters:
         - name: id
           schema:
@@ -572,6 +599,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/trains/itinerary/{id}/traveller':
     get:
+      tags:
+        - trains
       parameters:
         - name: id
           schema:
@@ -585,6 +614,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/trains/itinerary/{id}/pay':
     get:
+      tags:
+        - trains
       parameters:
         - name: id
           schema:
@@ -598,6 +629,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/hotels/itinerary/{id}/info':
     get:
+      tags:
+          - hotels
       parameters:
         - name: id
           schema:
@@ -611,6 +644,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/hotels/itinerary/{id}/traveller':
     get:
+      tags:
+          - hotels
       parameters:
         - name: id
           schema:
@@ -624,6 +659,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.
   '/hotels/itinerary/{id}/pay':
     get:
+      tags:
+          - hotels
       parameters:
         - name: id
           schema:
@@ -637,6 +674,8 @@ paths:
           description: Error . Invalid resource it does not exist in the servers.   
   '/accounts/trips/':
     get:
+      tags:
+        - user
       description: shows all trips a person has booked
       summary: trip description
       responses:
@@ -644,6 +683,8 @@ paths:
           description: OK
   '/account/shortlists':
     get:
+      tags:
+        - user
       description: shows all the flights and hotels shortlisted by that person
       summary: shortlisted flights and hotels
       responses:
@@ -651,12 +692,16 @@ paths:
           description: OK
   '/account/travellers':
     get:
+      tags:
+        - user
       description: gets all travellers added by a particular user.
       summary: traveller list
       responses:
         200:
           description: OK
     post:
+      tags:
+        - user
       summary: adds travellers
       requestBody:
         required: true
@@ -699,6 +744,8 @@ paths:
               requestBody:
                 userId: '$response.body#/id'
     patch:
+      tags:
+        - user
       summary: updates existing travellers
       operationId: patchUser
       requestBody:
@@ -725,6 +772,8 @@ paths:
         204:
           description: NO CONTENT
     delete:
+      tags:
+        - user
       operationId: deleteUser
       description: deletes the particular traveller
       summary: deletes traveller
@@ -734,19 +783,25 @@ paths:
   '/account/profile/':
       summary: basic updates 
       patch:
+        tags:
+          - user
         responses:
           200:
             description: OK
           204:
             description: NO CONTENT
   '/account/settings':
+    description: gets the basic details of the account holder
+    summary: user details
     get:
-      description: gets the basic details of the account holder
-      summary: user details
+      tags:
+        - user
       responses:
         200:
           description: OK
     put:
+      tags:
+        - user
       requestBody:
         content:
           application/x-www-formurlencoded:
@@ -763,6 +818,8 @@ paths:
         204:
           description: NO CONTENT
     delete:
+      tags:
+        - user
       summary: delete user
       responses:
         204:
