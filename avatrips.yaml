@@ -1,0 +1,789 @@
+openapi: 3.0.0
+info:
+  version: 'v1.0.0'
+  title: 'AvaTrips'
+  description: 'Your personal trip buddy'
+#paths: {}
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/athiravajit/avatrips/v1.0.0
+  - description: Cleartrip sample mock
+    url: https://www.cleartrip.com
+paths:
+  '/flights':
+    get:
+      description: leads to the flight page for searching domestic and international flights.
+      summary: Get flight details
+      responses:
+        200:
+          description: OK
+  '/hotels':
+    get:
+      description: leads to the hotels page for finding and booking hotels all around the world.
+      summary: Get hotel details
+      responses:
+        200:
+          description: OK
+  '/activities':
+    get:
+      description: leads to the activities exploration page for different cities.
+      summary: Get activities taking place in differrent cities.
+      responses:
+        200:
+          description: OK
+  '/terms/':
+    get:
+      description: leads to terms of service page
+      summary: get the terms of service page
+      responses:
+        200:
+          description: OK
+  '/about/':
+    get:
+      description: leads to the about page.
+      summary: about page
+      responses:
+        200:
+          description: OK
+  '/about/investors/':
+    get:
+      description: leads to the about investors page.
+      summary: about investors page
+      responses:
+        200:
+          description: OK
+  '/about/people/':
+    get:
+      description: leads to the team page.
+      summary: team page
+      responses:
+        200:
+          description: OK
+  '/press/':
+    get:
+      description: leads to press footprint of the site.
+      summary: press footprint
+      responses:
+        200:
+          description: OK
+  '/press/releases/{year}/':
+    get:
+      parameters: 
+        - name: year
+          schema:
+            type: integer
+          in: path
+          required: true
+      description: leads to the articles published on the web about the company
+      summary: news articles for the specified year
+      responses:
+        200:
+          description: OK
+  '/press/coverage/{year}/':
+    get:
+      parameters: 
+        - name: year
+          schema:
+            type: integer
+          in: path
+          required: true
+      description: leads to the news coverage consisting various tie ups of the company with others
+      summary: news coverage
+      responses:
+        200:
+          description: OK
+  '/contact/':
+    get:
+      description: leads to contact page
+      summary: contact page
+      responses:
+        200:
+          description: OK
+  '/jobs/':
+    get:
+      description: leads to jobs page
+      summary: job page
+      responses:
+        200:
+          description: OK
+  '/jobs/openings/':
+    get:
+      description: leads to job openings page showing various vaccancies.
+      summary: job openings page
+      responses:
+        200:
+          description: OK
+  '/jobs/openings/{id}/':
+    get:
+      parameters: 
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      description: leads to particular job with that id
+      summary: job info with that id
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/jobs/openings/{name}/':
+    get:
+      parameters: 
+        - name: name
+          schema:
+            type: string
+          in: path
+          required: true
+      description: leads to particular job with that name
+      summary: job info with that name
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/support/':
+    get:
+      description: leads to support and faq page
+      summary: support faq section
+      responses:
+        200:
+          description: OK
+  '/faq/':
+    get:
+      description: leads to faq section
+      summary: faq
+      responses:
+        200:
+          description: OK
+  '/faq/{section}/':
+    get:
+      parameters: 
+        - name: section
+          schema:
+            type: string
+          in: path
+          required: true
+      description: Opens to the question set of the given section
+      summary: faq of specific section
+      responses:
+        200:
+          description: OK
+          content:
+              application/x-www-form-urlencoded:
+                examples:
+                  usecase1:
+                    value: mostpopular
+                  usecase2:
+                    value: flights
+                  usecase3:
+                    value: international
+                  usecase4:
+                    value: hotels
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/offers/india/{name}':
+    get:
+      parameters:
+        - name: name
+          schema:
+            type: string
+          in: path
+          required: true
+      description: name can indicate anything it could be flight,hotel,activity or train offers.
+      summary: offers
+      responses:
+        200:
+          description: OK
+          content:
+            application/html:
+              examples:
+                usecase1:
+                  value: international-flights
+                usecase2:
+                  value: hotels
+                usecase3:
+                  value: activities
+                usecase4:
+                  value: trains
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/trains/calendar':
+    get:
+      parameters:
+        - name: from
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: from_station
+          schema:
+            type: string 
+          in: query
+          required: false
+        - name: to
+          schema:
+            type: string 
+          in: query
+          required: true  
+        - name: to_station
+          schema:
+            type: string 
+          in: query
+          required: false
+        - name: class
+          schema:
+            type: string 
+          in: query
+          required: true
+        - name: dateRange
+          schema:
+            type: string 
+          in: query
+          required: true
+      description: value gives the value of from station
+      responses:
+        200:
+          description: OK
+  '/flights/results':
+    get:
+        parameters:
+          - name: from
+            schema:
+              type: string 
+            in: query
+            required: true 
+          - name: to
+            schema:
+              type: string 
+            in: query
+            required: true 
+          - name: depart_date
+            schema:
+              type: string
+            in: query
+            required: true
+          - name: return_date
+            schema:
+              type: string
+            in: query
+            required: false
+          - name: adults
+            schema:
+              type: integer
+              minimum: 1
+              maximum: 9
+            in: query
+            required: true
+          - name: childs
+            schema:
+              type: integer
+              minimum: 0
+              maximum: 8
+            in: query
+            required: true
+          - name: infants
+            schema:
+              type: integer
+              minimum: 0
+              maximum: 2
+            in: query
+            required: true
+          - name: class
+            schema:
+              type: string 
+            in: query
+            required: true 
+          - name: airline
+            schema:
+              type: string 
+            in: query
+            required: false
+          - name: carrier
+            schema:
+              type: string 
+            in: query
+            required: false
+          - name: intl
+            schema:
+              type: string 
+            in: query
+            required: false
+          - name: sd
+            schema:
+              type: string 
+            in: query
+            required: true
+          - name: stops
+            schema:
+              type: string 
+            in: query
+            required: false
+          - name: page
+            schema:
+              type: string
+              default: loaded
+            in: query
+          - name: nearbyairportsOrigin
+            schema:
+              type: string
+            in: query
+            allowEmptyValue: true
+          - name: nearbyairportsDest
+            schema:
+              type: string
+            in: query
+            allowEmptyValue: true
+        responses: 
+          200:
+            description: OK
+  '/hotels/results':
+    get:
+      parameters:
+        - name: city
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: state
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: country
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: chk_in
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: chk-out
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: adults1
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: children1
+          schema:
+            type: string 
+          in: query
+          required: true 
+        - name: num_rooms
+          schema:
+            type: string 
+          in: query
+          required: true
+        - name: area
+          schema:
+            type: string 
+          in: query
+          allowEmptyValue: true
+          description: null values allowed
+        - name: poi
+          schema:
+            type: string 
+          in: query
+          allowEmptyValue: true
+          description: null values allowed
+        - name: hotelId
+          schema:
+            type: string 
+          in: query
+          allowEmptyValue: true
+          description: null values allowed
+        - name: hotelName
+          schema:
+            type: string 
+          in: query
+          allowEmptyValue: true
+          description: null values allowed
+        - name: SearchTag
+          schema:
+            type: string 
+          in: query
+          allowEmptyValue: true
+          description: null values allowed
+        - name: dest_code
+          schema:
+            type: string 
+          in: query
+          allowEmptyValue: true
+          description: null values allowed
+      responses:
+        200:
+          description: OK
+  '/hotels/details/{id}':
+    get:
+      parameters:
+        - name: id
+          schema: 
+            type: string
+          in: path
+          required: true
+        - name: c
+          schema:
+            type: string
+          in: query
+          required: false
+        - name: r
+          schema:
+            type: string
+          in: query
+          required: false
+        - name: lowRate
+          schema:
+            type: boolean
+            default: true
+          in: query
+          
+        - name: dest_code
+          schema:
+            type: string
+          in: query
+          allowEmptyValue: true
+        - name: tags
+          schema:
+            type: string
+          in: query
+          allowEmptyValue: true
+      responses:
+        200:
+          description: OK
+  '/trains/results':
+    get:
+      parameters:
+        - name: from_station
+          schema:
+            type: string
+          in: query
+          required: true
+        - name: to_station
+          schema:
+            type: string
+          in: query
+          required: true
+        - name: class
+          schema:
+            type: string
+          in: query
+          required: true
+        - name: date
+          schema:
+            type: string
+          in: query
+          required: true
+        - name: adults
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 6
+          in: query
+          required: true
+        - name: children
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+            maximum: 6
+          in: query
+          required: false
+          allowEmptyValue: true
+        - name: male_seniors
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+            maximum: 6
+          in: query
+          required: false
+          allowEmptyValue: true
+        - name: female_seniors
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+            maximum: 6
+          in: query
+          required: false
+          allowEmptyValue: true
+      responses:
+        200:
+          description: OK
+  '/flights/itinerary/{id}/info':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/flights/itinerary/{id}/traveller':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/flights/itinerary/{id}/pay':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/trains/itinerary/{id}/info':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/trains/itinerary/{id}/traveller':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/trains/itinerary/{id}/pay':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/hotels/itinerary/{id}/info':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/hotels/itinerary/{id}/traveller':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.
+  '/hotels/itinerary/{id}/pay':
+    get:
+      parameters:
+        - name: id
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: OK
+        404:
+          description: Error . Invalid resource it does not exist in the servers.   
+  '/accounts/trips/':
+    get:
+      description: shows all trips a person has booked
+      summary: trip description
+      responses:
+        200:
+          description: OK
+  '/account/shortlists':
+    get:
+      description: shows all the flights and hotels shortlisted by that person
+      summary: shortlisted flights and hotels
+      responses:
+        200:
+          description: OK
+  '/account/travellers':
+    get:
+      description: gets all travellers added by a particular user.
+      summary: traveller list
+      responses:
+        200:
+          description: OK
+    post:
+      summary: adds travellers
+      requestBody:
+        required: true
+        content:
+          application/x-www-formurlencoded:
+            schema:
+              type: object
+              properties:
+                personal_data[title]:
+                  type: string
+                personal_data[first_name]:
+                  type: string
+                personal_data[last_name]:
+                  type: string
+                personal_data[nick_name]:
+                  type: string
+                country_code:
+                  type: integer
+                contact_data[phone_number][0][phone_number_value]:
+                  type: integer
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: ID of the created user.
+          links:
+            PatchUserByUserId:   
+              operationId: patchUser
+              requestBody:
+                userId: '$response.body#/id'
+            DeleteUserByUserId:   
+              operationId: deleteUser
+              requestBody:
+                userId: '$response.body#/id'
+    patch:
+      summary: updates existing travellers
+      operationId: patchUser
+      requestBody:
+        content:
+          application/x-www-formurlencoded:
+            schema:
+              type: object
+              properties:
+                personal_data[title]:
+                  type: string
+                personal_data[first_name]:
+                  type: string
+                personal_data[last_name]:
+                  type: string
+                personal_data[nick_name]:
+                  type: string
+                country_code:
+                  type: integer
+                contact_data[phone_number][0][phone_number_value]:
+                  type: integer
+      responses:
+        200:
+          description: OK
+        204:
+          description: NO CONTENT
+    delete:
+      operationId: deleteUser
+      description: deletes the particular traveller
+      summary: deletes traveller
+      responses:
+        204:
+          description: traveller deleted
+  '/account/profile/':
+      summary: basic updates 
+      patch:
+        responses:
+          200:
+            description: OK
+          204:
+            description: NO CONTENT
+  '/account/settings':
+    get:
+      description: gets the basic details of the account holder
+      summary: user details
+      responses:
+        200:
+          description: OK
+    put:
+      requestBody:
+        content:
+          application/x-www-formurlencoded:
+            schema:
+              type: object
+              properties:
+                personal_data[country_preference]:
+                  type: string
+                personal_data[currency]:
+                  type: string
+      responses:
+        200:
+          description: OK
+        204:
+          description: NO CONTENT
+    delete:
+      summary: delete user
+      responses:
+        204:
+          description: account deleted
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
